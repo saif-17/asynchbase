@@ -148,9 +148,7 @@ asynchbase_SOURCES := \
 	src/jsr166e/LongAdder.java	\
 	src/jsr166e/Striped64.java
 
-protobuf_SOURCES := src/protobuf/ZeroCopyLiteralByteString.java		\
-	src/protobuf/LiteralByteString1.java         \
-	src/protobuf/BoundedByteString1.java         \
+protobuf_SOURCES := src/protobuf/ZeroCopyLiteralByteString.java
 
 asynchbase_LIBADD := \
 	$(NETTY)	\
@@ -208,7 +206,7 @@ test_LIBADD := \
         $(jar)
 
 package_dir := $(subst .,/,$(package))
-AM_JAVACFLAGS := -Xlint -source 8 -target 8
+AM_JAVACFLAGS := -Xlint -source 6 -target 6
 JAVAC := javac
 JVM_ARGS :=
 PROTOC := protoc
