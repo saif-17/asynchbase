@@ -35,34 +35,33 @@ package com.google.protobuf;  // This is a lie.
  * from C buffer to JVM buffer).
  * <p>
  * <strong>This class isn't part of the public API of AsyncHBase.</strong>
+ *
  * @since 1.5
  */
-public final class ZeroCopyLiteralByteString extends LiteralByteString {
+public final class ZeroCopyLiteralByteString {
 
-  /** Private constructor so this class cannot be instantiated. */
-  private ZeroCopyLiteralByteString() {
-    super(null);
-    throw new UnsupportedOperationException("Should never be here.");
-  }
-
-  /**
-   * Wraps a byte array in a {@link ByteString} without copying it.
-   */
-  public static ByteString wrap(final byte[] array) {
-    return new LiteralByteString(array);
-  }
-
-  /**
-   * Extracts the byte array from the given {@link ByteString} without copy.
-   * @param buf A buffer from which to extract the array.  This buffer must be
-   * actually an instance of a {@code LiteralByteString}.
-   */
-  public static byte[] zeroCopyGetBytes(final ByteString buf) {
-    if (buf instanceof LiteralByteString) {
-      return ((LiteralByteString) buf).bytes;
+    /**
+     * Private constructor so this class cannot be instantiated.
+     */
+    private ZeroCopyLiteralByteString() {
+        throw new UnsupportedOperationException("Should never be here.");
     }
-    throw new UnsupportedOperationException("Need a LiteralByteString, got a "
-                                            + buf.getClass().getName());
-  }
 
+    /**
+     * Wraps a byte array in a {@link ByteString} without copying it.
+     */
+    public static ByteString wrap(final byte[] array) {
+        return ByteString.wrap(array);
+    }
+
+    /**
+     * Extracts the byte array from the given {@link ByteString} without copy.
+     *
+     * @param buf A buffer from which to extract the array.  This buffer must be
+     *            actually an instance of a {@code LiteralByteString}.
+     */
+    public static byte[] zeroCopyGetBytes(final ByteString buf) {
+        return buf.toByteArray();
+    }
 }
+

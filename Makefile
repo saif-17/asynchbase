@@ -148,7 +148,9 @@ asynchbase_SOURCES := \
 	src/jsr166e/LongAdder.java	\
 	src/jsr166e/Striped64.java
 
-protobuf_SOURCES := src/protobuf/ZeroCopyLiteralByteString.java
+protobuf_SOURCES := src/protobuf/ZeroCopyLiteralByteString.java		\
+	src/protobuf/LiteralByteString1.java         \
+	src/protobuf/BoundedByteString1.java         \
 
 asynchbase_LIBADD := \
 	$(NETTY)	\
@@ -206,7 +208,7 @@ test_LIBADD := \
         $(jar)
 
 package_dir := $(subst .,/,$(package))
-AM_JAVACFLAGS := -Xlint -source 6 -target 6
+AM_JAVACFLAGS := -Xlint -source 8 -target 8
 JAVAC := javac
 JVM_ARGS :=
 PROTOC := protoc
@@ -233,7 +235,7 @@ $(top_builddir)/.javac-stamp: $(top_builddir)/.javac-protobuf-stamp $(asynchbase
 $(PROTOBUF_GEN_DIR)/%PB.java: protobuf/%.proto
 	@mkdir -p $(proto_generated_builddir)
 	@case `$(PROTOC) --version` in \
-	  (*2.5*) :;; \
+	  (*3.16.3*) :;; \
 	  (*) echo You need the protobuf compiler v2.5 2>&1; exit 1;; \
 	esac
 	$(PROTOC) -Iprotobuf --java_out=$(proto_generated_builddir) $<
